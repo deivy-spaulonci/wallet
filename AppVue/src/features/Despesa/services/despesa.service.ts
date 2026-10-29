@@ -8,11 +8,9 @@ const BASE = "/despesa";
 export const despesaService = {
 
     async findAll(params:any): Promise<Response<DespesaResponse>> {
-
         const response = await api.get<Response<DespesaResponse>>(BASE, {
             params: params
         });
-
         return response.data;
     },
 
@@ -24,18 +22,12 @@ export const despesaService = {
     },
 
     async save(despesa: Omit<Despesa, 'uuid'>): Promise<Despesa> {
-        const response = await api.post<Despesa>(
-            BASE,
-            despesa
-        );
+        const response = await api.post<Despesa>(BASE,despesa);
         return response.data;
     },
 
     async update(despesa: Partial<Despesa>): Promise<Despesa> {
-        const response = await api.put<Despesa>(
-            BASE,
-            despesa
-        );
+        const response = await api.put<Despesa>(BASE,despesa);
         return response.data;
     },
 

@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-<div class="flex flex-col gap-4 p-4" v-if="despesaDetail">
+<div class="flex flex-col gap-3 p-3 rounded-lg bg-surface-100 dark:bg-surface-800" v-if="despesaDetail">
   <Divider type="dashed">
     <code class="uppercase text-xs">Detalhes</code>
   </Divider>

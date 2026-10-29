@@ -29,7 +29,7 @@ const resolver = zodResolver(
     })
 )
 
-async function buscaCNPJ() {    
+async function buscaCNPJ() {
     const response = await pessoaJuridicaService.buscarCnpj(cnpj.value);
     formRef.value?.setValues({
         nome: response.estabelecimento?.nome_fantasia ? response.estabelecimento?.nome_fantasia : response.razao_social,
@@ -59,7 +59,7 @@ async function salvar({ valid, values }) {
     <Form ref="formRef" v-slot="$form" :resolver="resolver" :initialValues="initialValues" @submit="salvar"
         class="flex flex-col gap-4">
         <div class="flex gap-3 w-100">
-            <div class="flex flex-col gap-3 w-full">
+            <div class="flex flex-col gap-3 w-full rounded-lg bg-surface-100 dark:bg-surface-800 p-3">
                 <Label class="w-25">CNPJ:</Label>
                 <div class="flex flex-row w-full">
                     <InputText class="basis-5/6" v-mask="'99.999.999/9999-99'" name="cnpj" v-model="cnpj" />

@@ -6,8 +6,8 @@ import Times from '@primeicons/vue/times';
 import { filterDespesaView } from './FilterDespesaView';
 
 const emit = defineEmits(['filtrar'])
-  
-const { selectedTipoDespesa, selectedFornecedor, selectedFormaPgto, tipos, fornecedores, formas, dataInicial, 
+
+const { selectedTipoDespesa, selectedFornecedor, selectedFormaPgto, tipos, fornecedores, formas, dataInicial,
         dataFinal, mesDate, opcPeriodo, carregarTipos, carregarFormas, search, limparFiltros, filtrar
     } = filterDespesaView(emit);
 
@@ -18,7 +18,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 p-4">
+  <div class="flex flex-col gap-2 p-3 rounded-lg bg-surface-100 dark:bg-surface-800">
     <Divider type="dashed">
       <code class="uppercase text-xs">Filtros</code>
     </Divider>

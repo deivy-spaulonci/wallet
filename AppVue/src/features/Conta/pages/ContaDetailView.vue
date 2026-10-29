@@ -9,7 +9,7 @@ defineProps<{
 
 </script>
 <template>
-<div class="flex flex-col gap-2 p-4" v-if="contaDetail">
+<div class="flex flex-col gap-2 p-2 rounded-lg bg-surface-100 dark:bg-surface-800" v-if="contaDetail">
     <Divider type="dashed">
         <code class="uppercase text-xs">Detalhes</code>
     </Divider>
@@ -44,7 +44,7 @@ defineProps<{
     <span class="flex flex-row gap-2" v-if="contaDetail.formaPagamento">
         <span>Forma pgto: </span>
         <span class="italic text-green-400">
-            {{ contaDetail.formaPagamento }}
+            {{ contaDetail.formaPagamentoDesc }}
         </span>
     </span>
     <span class="flex flex-row gap-2" v-if="contaDetail.formaPagamento">

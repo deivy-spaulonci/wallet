@@ -12,6 +12,7 @@ import CheckSquare from "@primeicons/vue/check-square";
 import { tableContasView } from "./TableContasView.ts";
 import SetContaView from "./SetContaView.vue";
 import ContaDetailView from "./ContaDetailView.vue";
+import FormContaView from "./FormContaView.vue";
 
 const {
     totalElements,
@@ -30,7 +31,8 @@ const {
     findConta,
     rowStyle,
     filtrar,
-    setPayVisible
+  setPayVisible,
+    editVisible
 } = tableContasView();
 
 defineExpose({ filtrar });
@@ -39,8 +41,8 @@ onMounted(carregarContas);
 </script>
 
 <template>
-    <div class="flex gap-1">
-        <div class="flex flex-col">
+    <div class="flex gap-3 ">
+        <div class="flex flex-col rounded-lg bg-surface-100 dark:bg-surface-800 p-5">
             <ContextMenu ref="cm" :model="menuModel" />
             <DataTable
             ref="tabelaContas"
@@ -132,7 +134,7 @@ onMounted(carregarContas);
             </DataTable>
             <ConfirmDialog></ConfirmDialog>
         </div>
-        <div class="flex flex-col w-100">
+        <div class="flex flex-col w-100 gap-3">
             <FilterContaView @filtrar="filtrar" />
 
             <ContaDetailView :contaDetail="contaDetail"/>
@@ -140,6 +142,13 @@ onMounted(carregarContas);
     </div>
     <SetContaView v-model:visible="setPayVisible" :conta="selectedItem" @atualizar="carregarContas"></SetContaView>
     <Toast />
+
+    <Dialog v-model:visible="editVisible" modal header="Editar Conta" :style="{width: 'auto'}" @after-hide="carregarContas">
+         <FormContaView :idEdicao="selectedItem.uuid" @close-dialog="editVisible = false" />
+        <template #footer>
+          <Button severity="secondary" @click="editVisible = false">Fechar</Button>
+        </template>
+    </Dialog>
 </template>
 
 <style scoped>

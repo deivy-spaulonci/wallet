@@ -17,7 +17,7 @@ import {
     ConfirmationService,
     ConfirmDialog,
     ContextMenu,
-    DataTable, DatePicker, Dialog, Divider, Fieldset, IconField, InputGroup, InputGroupAddon, InputIcon, InputNumber,
+    DataTable, DatePicker, Dialog, Divider, Fieldset, FileUpload, IconField, InputGroup, InputGroupAddon, InputIcon, InputNumber,
     InputPassword,
     InputText, Label,
     Message, Panel, RadioButton,
@@ -78,5 +78,6 @@ app.component('Dialog', Dialog);
 app.component('BlockUI', BlockUI);
 app.component('Panel', Panel);
 app.component('Fieldset', Fieldset);
+app.component('FileUpload', FileUpload);
 
 app.mount('#app')

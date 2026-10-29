@@ -18,7 +18,7 @@ const { despesas, menuModel, loading, selectedItem, totalElements, page, valorTo
 
 <template>
   <div class="flex gap-1">
-    <div class="flex flex-col">
+    <div class="flex flex-col rounded-lg bg-surface-100 dark:bg-surface-800 gap-3 p-3">
       <ContextMenu ref="cm" :model="menuModel" />
       <DataTable :value="despesas" stripedRows removableSort lazy paginator :sortOrder="-1" :rows="page?.size"
         :sortField="page?.sort" :totalRecords="totalElements" :loading="loading"
@@ -57,9 +57,9 @@ const { despesas, menuModel, loading, selectedItem, totalElements, page, valorTo
       <Toast />
       <ConfirmDialog></ConfirmDialog>
     </div>
-    <div class="flex flex-col max-w-100">
+    <div class="flex flex-col max-w-100 gap-3">
       <FilterDespesaView @filtrar="filtrar" ref="filterDespesa" />
-      <DetailDespesaView :despesaDetail="selectedItem"/>
+      <DetailDespesaView :despesaDetail="selectedItem" v-if="selectedItem"/>
     </div>
   </div>
 

@@ -30,6 +30,11 @@ export const contaService = {
     return response.data;
   },
 
+  async update(conta: Partial<Conta>): Promise<Conta> {
+      const response = await api.put<Conta>(BASE,conta);
+      return response.data;
+  },
+
   async setContaPaga(params: any): Promise<Conta> {
     const response = await api.put(BASE + "/setContaPaga", params);
     return response.data;

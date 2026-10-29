@@ -24,7 +24,7 @@ const initialValues = ref({
 const resolver = zodResolver(
     z.object({
         nome: z.string().trim().min(3, 'Informe o nome!'),
-        cpf: z.string().trim().min(3, 'Informe a CPF!'),                
+        cpf: z.string().trim().min(3, 'Informe a CPF!'),
         codigoIbge:  z.union([z.string(), z.number()])
                         .refine((value) => String(value).trim().length > 0, {
                         message: 'Selecione uma cidade!',}),
@@ -68,7 +68,7 @@ onMounted(() => {
     <Form ref="formRef" v-slot="$form" :resolver="resolver" :initialValues="initialValues" @submit="salvar"
         class="flex flex-col gap-4">
         <div class="flex gap-3 w-100">
-            <div class="flex flex-col gap-3 w-full">
+            <div class="flex flex-col gap-3 w-full rounded-lg bg-surface-100 dark:bg-surface-800 p-4">
                 <Label class="w-25">Nome:</Label>
                 <InputText class="w-full" name="nome" />
                 <Message v-if="$form.nome?.invalid" severity="error" size="small" variant="simple">
@@ -79,7 +79,7 @@ onMounted(() => {
                 <InputText class="w-full" name="cpf" />
                 <Message v-if="$form.cpf?.invalid" severity="error" size="small" variant="simple">
                     {{ $form.cpf.error?.message }}
-                </Message>                
+                </Message>
 
                 <Label class="w-25">UF:</Label>
                 <Select v-model="estadoSelecionado" :options="[
@@ -93,15 +93,15 @@ onMounted(() => {
                     <Cog spin :size="18" v-if="loading" />
                 </Label>
                 <Select v-model="cidadeSelecionada" optionLabel="nome" optionValue="id"
-                    
-                    name="codigoIbge" 
+                    name="codigoIbge"
                     :filter="true"
-                    :options="cidades" 
-                    placeholder="selecione uma cidade" class="w-100" scrollHeight="40rem" />
+                    :options="cidades"
+                    placeholder="selecione uma cidade"
+                    scrollHeight="40rem" />
                 <Message v-if="$form.codigoIbge?.invalid" severity="error" size="small" variant="simple">
                     {{ $form.codigoIbge.error?.message }}
-                </Message>  
-                    
+                </Message>
+
                 <Button type="submit" class="w-full mt-10">
                     <Save />Salvar
                 </Button>

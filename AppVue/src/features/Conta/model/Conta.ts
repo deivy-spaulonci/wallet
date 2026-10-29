@@ -11,7 +11,8 @@ export interface Conta{
     totalParcela: number;
     valor: number;
     dataPagamento: Date;
-    formaPagamento: FormaPagamento;
+  formaPagamento: FormaPagamento;
+  formaPagamentoDesc: string;
     valorPago: number;
     titulo: string;
     comprovante: string;

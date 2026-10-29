@@ -29,10 +29,10 @@ onMounted(carregarPessoas);
 
 <template>
    <div>
-      <div class="flex flex-col">
+      <div class="flex flex-col rounded-lg bg-surface-100 dark:bg-surface-800 p-4">
          <DataTable :value="pessoas" stripedRows removableSort lazy paginator :sortOrder="1" :rows="page?.size"
-            :sortField="page?.sort" :totalRecords="totalElements" :loading="loading" 
-            @page="onPage($event, carregarPessoas)" 
+            :sortField="page?.sort" :totalRecords="totalElements" :loading="loading"
+            @page="onPage($event, carregarPessoas)"
             @sort="onSort($event, carregarPessoas)"
             :rowsPerPageOptions="[20, 25, 30]" v-model:selection="selectedItem" paginator-position="top"
             selectionMode="single" class="flex-col w-150">

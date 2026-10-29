@@ -148,5 +148,6 @@ export function tableContasView() {
     onSort,
     onRowContextMenu,
     setPayVisible,
+    editVisible
   };
 }

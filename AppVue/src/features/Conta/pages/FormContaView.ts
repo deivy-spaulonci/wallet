@@ -6,14 +6,17 @@ import { useToast } from "primevue/usetoast";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import z from "zod";
 import { DateUtil } from "@/core/util/DateUtil";
+import type { Conta } from "../model/Conta";
+import { FormatUtil } from "@/core/util/FormatUtil";
 
-export function formContaView() {
+export function formContaView(idEdicao: string | undefined, emit: any) {
+
   const tipos = ref<TipoConta[]>([]);
   const toast = useToast();
   const carregando = ref(true);
   const errorValid = ref("");
   const formRef = ref<any>(null)
-  const initialValues = ref({
+  const initialValues = ref<any>({
     codigoBrras: "",
     tipoConta: {},
     emissao: "",
@@ -115,20 +118,17 @@ export function formContaView() {
     }
 
     try {
-    //     if(!idEdicao){
-      console.log('salvando nova despesa...')
-      contaService.save(values);
+        if(!idEdicao){
+          console.log('salvando nova despesa...')
+          contaService.save(values);
 
-    //     }else{
-            // values = {...values, uuid: idEdicao}
-    //         console.log('salvando edicao despesa...')
-    //         despesaService.update(values);
+        }else{
+            values = {...values, uuid: idEdicao}
+            console.log('salvando edicao despesa...')
+            contaService.update(values);
 
-    //     }
-    //     initialValues.value.dataPagamento = '';
-    //     initialValues.value.valor = '0';
-    //     initialValues.value.fornecedor = null;
-    //     formRef.value?.reset();
+        }
+        formRef.value?.reset();
 
         toast.add({ severity: 'success', summary: 'Sucesso!', detail: 'Despesa salva.', life: 3000 });
     } catch (e) {
@@ -140,27 +140,27 @@ export function formContaView() {
     }
   }
 
-  /*
-        async function checkEdicao() {
-            if (!idEdicao) return
-            carregando.value = true
-
-            try{
-                const despesa: Despesa = await despesaService.findOne({uuid: idEdicao});
-                initialValues.value = despesa;
-                selectedTipoDespesa.value = despesa.tipoDespesa;
-                initialValues.value.valor = FormatUtil.floatToNumberBRNoSymbol(despesa.valor);
-                initialValues.value.dataPagamento = DateUtil.toFormDate(despesa.dataPagamento);
-                selectedFormaPgto.value = despesa.formaPagamento;
-
-            }catch (e){
-                console.log(e);
-                toast.add({ severity: 'error', summary: 'Erro!', detail: 'Houve um erro ao carregar a Despesa', life: 3000 });
-            } finally {
-               carregando.value = false
-            }
-        }
-    */
+  async function checkEdicao() {
+      if (!idEdicao) return
+      carregando.value = true
+      try{
+        const conta: Conta = await contaService.findOne({ uuid: idEdicao });
+        initialValues.value = conta;
+        initialValues.value.emissao = DateUtil.toFormDate(conta.emissao+'');
+        initialValues.value.vencimento = DateUtil.toFormDate(conta.vencimento+'');
+        (conta.totalParcela && conta.totalParcela) ? initialValues.value.parcelas = conta.parcela + '/0' + conta.totalParcela : '00/000';
+        initialValues.value.valor = FormatUtil.floatToNumberBRNoSymbol(conta.valor);
+        initialValues.value.formaPagamento = conta.formaPagamento;
+        initialValues.value.dataPagamento = DateUtil.toFormDate(conta.dataPagamento+'');
+        initialValues.value.valorPago = FormatUtil.floatToNumberBRNoSymbol(conta.valorPago);
+        initialValues.value.observacao = conta.observacao;
+      }catch (e){
+          console.log(e);
+          toast.add({ severity: 'error', summary: 'Erro!', detail: 'Houve um erro ao carregar a Conta', life: 3000 });
+      } finally {
+          carregando.value = false
+      }
+  }
 
   return {
     tipos,
@@ -171,5 +171,6 @@ export function formContaView() {
     salvar,
     formRef,
     carregarTipos,
+    checkEdicao
   };
 }

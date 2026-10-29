@@ -24,11 +24,11 @@ onMounted(() => {
 
 <template>
   <Form ref="formRef" v-slot="$form" :resolver="resolver" :initialValues="initialValues" @submit="salvar"
-    :key="props.idEdicao ?? 'novo'" v-if="!carregando" class="flex flex-col gap-5 p-10">
+    :key="props.idEdicao ?? 'novo'" v-if="!carregando" class=" ">
 
-    <div class="flex gap-3">
+    <div class="flex gap-5 p-10 rounded-lg bg-surface-100 dark:bg-surface-800 w-120">
       <div class="flex flex-col gap-3">
-        
+
         <Label class="w-25">Fornecedor:</Label>
         <AutoComplete :suggestions="fornecedores" @complete="search" optionLabel="nome" name="fornecedor"
           placeholder="fornecedor" inputClass="w-full" class="w-100" emptySearchMessage="nenhum fornecedor encontrado"
@@ -38,14 +38,14 @@ onMounted(() => {
         </Message>
 
 
-        <Label class="w-25">Tipo Despesa:</Label>
+        <Label>Tipo Despesa:</Label>
         <Select v-model="selectedTipoDespesa" name="tipoDespesa" :options="tipos" optionLabel="nome"
           placeholder="selecione uma despesa" class="w-100" scrollHeight="40rem" />
         <Message v-if="$form?.tipoDespesa?.invalid" severity="error" size="small" variant="simple">
           {{ $form.tipoDespesa.error?.message }}
         </Message>
 
-        <Label class="w-25">Data Pgto:</Label>
+        <Label>Data Pagamento:</Label>
         <InputDate name="dataPagamento" class="w-full" />
         <Message v-if="$form?.dataPagamento?.invalid" severity="error" size="small" variant="simple">
           {{ $form.dataPagamento.error?.message }}
@@ -57,7 +57,7 @@ onMounted(() => {
           {{ $form.valor.error?.message }}
         </Message>
 
-        <Label class="w-25">Forma Pgto:</Label>
+        <Label>Forma Pagamento:</Label>
         <SelectFormaPagamento name="formaPagamento" />
         <Message v-if="$form?.formaPagamento?.invalid" severity="error" size="small" variant="simple">
           {{ $form.formaPagamento.error?.message }}

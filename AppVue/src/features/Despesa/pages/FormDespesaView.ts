@@ -9,16 +9,17 @@ import { useToast } from "primevue/usetoast";
 import { onMounted, ref } from "vue";
 import { z } from 'zod';
 import { despesaService } from "../services/despesa.service";
+import type { Despesa } from "../model/Despesa";
 
 export function formDespesaView(idEdicao: string | undefined, emit: any) {
-    
-    const selectedTipoDespesa = ref({});    
+
+    const selectedTipoDespesa = ref({});
     const tipos = ref<TipoDespesa[]>([]);
     const fornecedores = ref<Fornecedor[]>([]);
     const toast = useToast();
     const carregando = ref(false)
     const formRef = ref<any>(null)
-    const initialValues = ref({
+    const initialValues = ref<any>({
         fornecedor: null,
         formaPagamento: null,
         tipoDespesa: null,
@@ -59,12 +60,12 @@ export function formDespesaView(idEdicao: string | undefined, emit: any) {
                 despesaService.save(values);
             }else{
                 values = {...values, uuid: idEdicao}
-                console.log('salvando edicao despesa...')  
+                console.log('salvando edicao despesa...')
                 despesaService.update(values);
 
             }
             initialValues.value.dataPagamento = '';
-            initialValues.value.valor = '0';   
+            initialValues.value.valor = '0';
             initialValues.value.fornecedor = null;
             formRef.value?.reset();
 
@@ -95,8 +96,7 @@ export function formDespesaView(idEdicao: string | undefined, emit: any) {
             initialValues.value = despesa;
             selectedTipoDespesa.value = despesa.tipoDespesa;
             initialValues.value.valor = FormatUtil.floatToNumberBRNoSymbol(despesa.valor);
-            initialValues.value.dataPagamento = DateUtil.toFormDate(despesa.dataPagamento);            
-
+            initialValues.value.dataPagamento = DateUtil.toFormDate(despesa.dataPagamento+'');
         }catch (e){
             console.log(e);
             toast.add({ severity: 'error', summary: 'Erro!', detail: 'Houve um erro ao carregar a Despesa', life: 3000 });
@@ -106,17 +106,17 @@ export function formDespesaView(idEdicao: string | undefined, emit: any) {
     }
 
     return {
-        selectedTipoDespesa,                  
+        selectedTipoDespesa,
         tipos,
         fornecedores,
-        initialValues,        
+        initialValues,
         carregando,
         formRef,
         resolver,
         salvar,
         search,
-        carregarTipos,        
-        onMounted, 
+        carregarTipos,
+        onMounted,
         checkEdicao
     }
 }

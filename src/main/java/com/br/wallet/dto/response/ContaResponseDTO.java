@@ -23,11 +23,11 @@ public record ContaResponseDTO(
     UUID uuid,
     String status){
 
-    public String getFormaPagamento()
+    public String getFormaPagamentoDesc()
     {
         if(formaPagamento != null && formaPagamento.modalidade()!=null){
             String forma = formaPagamento.modalidade().descricao();
-            forma += formaPagamento.descricao()==null ? "" : " - " + formaPagamento.descricao();
+            forma += formaPagamento.instituicao()==null ? "" : " - " + formaPagamento.instituicao();
             return forma;
         }
         return "";

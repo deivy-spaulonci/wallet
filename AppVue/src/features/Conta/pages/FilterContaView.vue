@@ -27,7 +27,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="flex flex-col gap-2 p-4">
+    <div class="flex flex-col gap-2 p-4 rounded-lg bg-surface-100 dark:bg-surface-800">
         <Divider type="dashed">
             <code class="uppercase text-xs">Filtros</code>
         </Divider>
